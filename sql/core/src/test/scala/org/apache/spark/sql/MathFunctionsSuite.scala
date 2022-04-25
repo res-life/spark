@@ -282,6 +282,16 @@ class MathFunctionsSuite extends QueryTest with SharedSparkSession {
     testOneToOneMathFunction(rint, math.rint)
   }
 
+  test("my-debug1") {
+    val df = Seq(5, 55, 555).map(Tuple1(_)).toDF("a")
+    df.selectExpr("ceil(cast(a as decimal(18, 0)), 0)").collect()
+  }
+
+  test("my-debug") {
+    val df = Seq(5, 55, 555).map(Tuple1(_)).toDF("a")
+    df.selectExpr("floor(cast(a as decimal(18, 0)))").collect()
+  }
+
   test("round/bround/ceil/floor") {
     val df = Seq(5, 55, 555).map(Tuple1(_)).toDF("a")
     checkAnswer(
